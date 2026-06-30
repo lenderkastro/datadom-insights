@@ -77,19 +77,37 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Datadom — Data Analytics & Machine Learning" },
+      { name: "description", content: "Datadom helps businesses and individuals turn raw data into actionable insights through analytics, machine learning, and practical training in Uyo, Nigeria." },
+      { name: "author", content: "Datadom" },
+      { property: "og:site_name", content: "Datadom" },
+      { property: "og:title", content: "Datadom — Data Analytics & Machine Learning" },
+      { property: "og:description", content: "Datadom helps businesses and individuals turn raw data into actionable insights through analytics, machine learning, and practical training in Uyo, Nigeria." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Datadom",
+          url: "https://datadom.ng",
+          logo: "https://datadom.ng/logo.svg",
+          description: "Data analysis, machine learning, and practical training in Uyo, Nigeria.",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Uyo",
+            addressCountry: "NG",
+          },
+        }),
       },
     ],
   }),
@@ -118,8 +136,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="flex min-h-screen flex-col bg-background font-sans text-foreground">
+        <Header />
+        <main className="flex-1">
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </QueryClientProvider>
   );
 }
