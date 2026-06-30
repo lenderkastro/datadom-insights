@@ -102,8 +102,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Datadom",
-          url: "https://datadom.ng",
-          logo: "https://datadom.ng/logo.svg",
           description: "Data analysis, machine learning, and practical training in Uyo, Nigeria.",
           address: {
             "@type": "PostalAddress",
