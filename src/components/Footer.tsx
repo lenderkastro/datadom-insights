@@ -16,11 +16,8 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="space-y-4 md:col-span-2">
-            <Link to="/" className="flex items-center gap-2.5 text-foreground">
-              <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
-                <span className="h-2.5 w-2.5 rounded-full bg-primary-foreground" />
-              </span>
-              <span className="font-mono text-base font-bold tracking-tight">DATADOM</span>
+            <Link to="/" className="inline-flex items-center text-foreground" aria-label="Datadom home">
+              <img src={datadomLogo.url} alt="Datadom" className="h-10 w-auto object-contain" />
             </Link>
             <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
               Enterprise-grade data science, machine learning, and specialized training. Turning
