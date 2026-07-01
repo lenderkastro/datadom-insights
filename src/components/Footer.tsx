@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
+import datadomLogo from "@/assets/datadom-logo.png.asset.json";
 
 const footerLinks = [
   { to: "/", label: "Home" },
