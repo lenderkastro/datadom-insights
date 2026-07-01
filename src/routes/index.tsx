@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -72,85 +73,169 @@ const capabilities = [
 function HomePage() {
   return (
     <div className="bg-background">
-      {/* Hero — architectural split */}
-      <section className="mx-auto max-w-7xl px-4 pt-10 pb-16 sm:px-6 lg:px-8 lg:pt-14">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="grid grid-cols-1 overflow-hidden rounded-3xl border border-border bg-card shadow-sm lg:grid-cols-2"
-        >
-          {/* Left panel */}
-          <div className="flex flex-col justify-center border-b border-border p-8 sm:p-12 lg:border-b-0 lg:border-r lg:p-16 xl:p-20">
-            <div className="mb-8 inline-flex items-center gap-2 self-start">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Uyo · Nigeria
+      {/* Hero — restructured layout, no outer card box border */}
+      <section className="relative mx-auto max-w-7xl px-4 pt-16 pb-20 sm:px-6 lg:px-8 lg:pt-24 lg:pb-28 overflow-hidden">
+        {/* Subtle radial glow background behind the floating widget */}
+        <div className="pointer-events-none absolute right-0 top-1/4 -z-10 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
+        
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
+          {/* Left column — Value Proposition */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="flex flex-col justify-center lg:col-span-7"
+          >
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 self-start shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Uyo · Nigeria · Active Consulting
               </span>
             </div>
 
-            <h1 className="font-mono text-4xl font-bold leading-[1.05] text-foreground sm:text-5xl lg:text-6xl">
-              Advanced analytics
-              <br />
-              <span className="text-primary">engineered</span> for growth.
+            <h1 className="font-mono text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              Advanced analytics <br className="hidden sm:inline" />
+              <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">engineered</span> for growth.
             </h1>
 
-            <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Enterprise-grade data science, ML consulting, and specialized training. We transform
-              complex data into actionable strategic intelligence.
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Enterprise-grade data science, machine learning consulting, and specialized training. We transform complex data architectures into strategic intelligence.
             </p>
 
+            <div className="mt-8 space-y-4 border-l border-border pl-6">
+              <div className="space-y-1">
+                <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-foreground">Data Architecture</h3>
+                <p className="text-xs text-muted-foreground">Automated pipelines, SQL/Python engineering & lakehouse integration.</p>
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-foreground">Intelligence Design</h3>
+                <p className="text-xs text-muted-foreground">Power BI executive dashboards and self-serve reporting architectures.</p>
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-foreground">Machine Learning</h3>
+                <p className="text-xs text-muted-foreground">Forecasting, clustering and classification models deployed natively.</p>
+              </div>
+            </div>
+
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="rounded-xl px-7">
+              <Button asChild size="lg" className="rounded-xl px-7 shadow-sm">
                 <Link to="/contact">
                   Start consulting
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-xl px-7">
+              <Button asChild size="lg" variant="outline" className="rounded-xl px-7 bg-card">
                 <Link to="/training">View curriculum</Link>
               </Button>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right panel */}
-          <div className="flex flex-col justify-center gap-4 bg-secondary p-8 sm:p-12 lg:p-16 xl:p-20">
-            {services.map((s, i) => (
-              <motion.div
-                key={s.title}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: EASE, delay: 0.2 + i * 0.08 }}
-              >
-                <Link
-                  to="/services"
-                  className="group flex items-center justify-between rounded-2xl border border-transparent bg-background/60 p-5 transition-all duration-300 hover:border-primary/20 hover:bg-background sm:p-6"
-                >
-                  <div>
-                    <p className="font-mono text-lg font-bold text-foreground sm:text-xl">
-                      {s.title}
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">{s.subtitle}</p>
-                  </div>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                </Link>
-              </motion.div>
-            ))}
-
-            <div className="mt-6 flex items-center gap-4 border-t border-border/70 pt-6">
-              <div className="flex -space-x-2">
-                <span className="h-8 w-8 rounded-full border-2 border-secondary bg-muted-foreground" />
-                <span className="h-8 w-8 rounded-full border-2 border-secondary bg-primary" />
-                <span className="h-8 w-8 rounded-full border-2 border-secondary bg-foreground" />
+          {/* Right column — Floating Live Data Engine Simulator Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-8 shadow-lg backdrop-blur-md lg:col-span-5 hover:border-primary/20 transition-colors duration-500"
+          >
+            <div className="space-y-6">
+              {/* Header of widget */}
+              <div className="flex items-center justify-between border-b border-border/80 pb-4">
+                <div className="space-y-1">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-primary">
+                    Live Engine Simulator
+                  </p>
+                  <h3 className="font-mono text-sm font-bold text-foreground">
+                    DATADOM ENGINE v1.2
+                  </h3>
+                </div>
+                <div className="flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground shadow-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  ONLINE
+                </div>
               </div>
-              <p className="text-sm font-medium text-foreground">
-                Trusted by leading organizations in Nigeria
-              </p>
+
+              {/* Step 1: Data Pipeline Flow */}
+              <div className="rounded-2xl border border-border/60 bg-background/85 p-5 shadow-sm">
+                <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground">
+                  <span>PIPELINE ORCHESTRATOR</span>
+                  <span className="text-emerald-500 font-semibold">Active</span>
+                </div>
+                {/* Visual flowchart */}
+                <div className="mt-4 grid grid-cols-3 items-center gap-2">
+                  <div className="rounded-lg border border-border bg-card p-2 text-center shadow-sm">
+                    <p className="font-mono text-[9px] text-muted-foreground">SOURCE</p>
+                    <p className="mt-1 font-mono text-[10px] font-bold text-foreground">PostgreSQL</p>
+                  </div>
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="h-0.5 w-full bg-gradient-to-r from-primary to-primary/40 relative">
+                      <div className="absolute top-1/2 left-0 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-primary animate-[ping_1.5s_infinite]" />
+                    </div>
+                    <span className="mt-1 font-mono text-[8px] text-muted-foreground">ETL (24ms)</span>
+                  </div>
+                  <div className="rounded-lg border border-border bg-card p-2 text-center shadow-sm">
+                    <p className="font-mono text-[9px] text-muted-foreground">WAREHOUSE</p>
+                    <p className="mt-1 font-mono text-[10px] font-bold text-foreground">BigQuery</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 2: Machine Learning Prediction Model */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="rounded-2xl border border-border/60 bg-background/85 p-5 shadow-sm">
+                  <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground">
+                    <span>ML PREDICTION</span>
+                    <span className="text-primary font-semibold">98.4% Acc</span>
+                  </div>
+                  <div className="mt-3 flex items-end gap-2">
+                    <div className="flex-1 space-y-1">
+                      <div className="h-1 bg-border rounded-full overflow-hidden">
+                        <div className="h-full bg-primary w-[98.4%]" />
+                      </div>
+                      <p className="font-mono text-[10px] text-muted-foreground">Loss: 0.012</p>
+                    </div>
+                    <span className="shrink-0 font-mono text-xs font-bold text-foreground">Classifier</span>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-border/60 bg-background/85 p-5 shadow-sm">
+                  <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground">
+                    <span>INTELLIGENCE</span>
+                    <span className="text-muted-foreground">Live Feed</span>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                      <span className="font-mono text-[10px] font-medium text-foreground">BI Dashboard</span>
+                    </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </motion.div>
+
+            {/* Bottom Partners section */}
+            <div className="mt-8 border-t border-border/70 pt-6">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Trusted by leading organizations
+              </p>
+              <div className="mt-4 flex items-center gap-6">
+                <img
+                  src="/partners/nacos.png"
+                  alt="NACOS Logo"
+                  className="h-10 w-auto object-contain max-w-[100px] filter grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                />
+                <img
+                  src="/partners/okike.png"
+                  alt="Okike Logo"
+                  className="h-10 w-auto object-contain max-w-[100px] filter grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Metrics band */}

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
-import datadomLogo from "@/assets/datadom-logo.png.asset.json";
+
 
 const footerLinks = [
   { to: "/", label: "Home" },
@@ -17,7 +17,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-4">
           <div className="space-y-4 md:col-span-2">
             <Link to="/" className="inline-flex items-center text-foreground" aria-label="Datadom home">
-              <img src={datadomLogo.url} alt="Datadom" className="h-10 w-auto object-contain" />
+              <img src="/logo/logo.png" alt="Datadom" className="h-14 w-auto object-contain" />
             </Link>
             <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
               Enterprise-grade data science, machine learning, and specialized training. Turning
@@ -69,9 +69,14 @@ export function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col items-start justify-between gap-3 border-t border-border pt-8 sm:flex-row sm:items-center">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Datadom. All rights reserved.
-          </p>
+          <div className="flex flex-col gap-1 sm:gap-1.5">
+            <p className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} Datadom. All rights reserved.
+            </p>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground/60">
+              Site Built by <span className="font-semibold text-foreground/80">OKIKE ENTERPRISES</span>
+            </p>
+          </div>
           <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
             Engineered in Nigeria
           </p>
