@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import datadomLogo from "@/assets/datadom-logo.png.asset.json";
 
 const navLinks = [
   { to: "/", label: "Home" },
