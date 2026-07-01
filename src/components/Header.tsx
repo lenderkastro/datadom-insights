@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import datadomLogo from "@/assets/datadom-logo.png.asset.json";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -19,11 +20,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/85 backdrop-blur-lg">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2.5 text-foreground transition-opacity hover:opacity-80">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
-            <span className="h-2.5 w-2.5 rounded-full bg-primary-foreground" />
-          </span>
-          <span className="font-mono text-base font-bold tracking-tight">DATADOM</span>
+        <Link to="/" className="flex items-center gap-2.5 text-foreground transition-opacity hover:opacity-80" aria-label="Datadom home">
+          <img src={datadomLogo.url} alt="Datadom" className="h-9 w-auto object-contain" />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
