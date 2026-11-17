@@ -59,19 +59,19 @@
 :root {
   --radius: 0.875rem;
 
-  /* Cloud White palette */
+  /* Cloud White + Datadom Brand Navy & Royal Blue palette */
   --background: oklch(0.991 0.002 247.86);      /* #fafbfc */
-  --foreground: oklch(0.208 0.042 265.75);      /* slate-900 #0f172a */
+  --foreground: oklch(0.208 0.042 265.75);      /* Datadom deep navy #0f172a */
   --card: oklch(1 0 0);                          /* pure white surface */
   --card-foreground: oklch(0.208 0.042 265.75);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.208 0.042 265.75);
-  --primary: oklch(0.623 0.214 259.81);          /* #3b82f6 blue-500 */
+  --primary: oklch(0.56 0.22 260);               /* Datadom royal blue #2563eb */
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.951 0.011 247.86);        /* #e8ecf1 surface */
   --secondary-foreground: oklch(0.208 0.042 265.75);
   --muted: oklch(0.951 0.011 247.86);
-  --muted-foreground: oklch(0.665 0.032 252.42); /* #94a3b8 */
+  --muted-foreground: oklch(0.52 0.03 256);      /* legible slate-600 */
   --accent: oklch(0.951 0.011 247.86);
   --accent-foreground: oklch(0.208 0.042 265.75);
   --destructive: oklch(0.577 0.245 27.325);

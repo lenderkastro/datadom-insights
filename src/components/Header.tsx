@@ -1,9 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -19,12 +18,20 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/85 backdrop-blur-lg">
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2.5 text-foreground transition-opacity hover:opacity-80" aria-label="Datadom home">
-          <img src="/logo/logo.png" alt="Datadom" className="h-16 w-auto object-contain" />
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link
+          to="/"
+          className="flex items-center gap-2.5 text-foreground transition-opacity hover:opacity-85"
+          aria-label="Datadom home"
+        >
+          <img src="/logo/logo.png" alt="Datadom" className="h-11 w-auto object-contain" />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        {/* Centered segmented pill navigation */}
+        <nav
+          aria-label="Primary navigation"
+          className="hidden items-center gap-1 rounded-full border border-border/80 bg-card/90 p-1 shadow-xs backdrop-blur-md md:flex"
+        >
           {navLinks.map((link) => {
             const isActive = pathname === link.to;
             return (
@@ -32,10 +39,10 @@ export function Header() {
                 key={link.to}
                 to={link.to}
                 className={cn(
-                  "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  "rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200",
                   isActive
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                    ? "bg-foreground text-background shadow-xs"
+                    : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground",
                 )}
               >
                 {link.label}
@@ -44,16 +51,19 @@ export function Header() {
           })}
         </nav>
 
-        <div className="hidden md:block">
-          <Button asChild size="sm" className="rounded-lg">
-            <Link to="/contact">Start a project</Link>
+        <div className="hidden items-center gap-3 md:flex">
+          <Button asChild size="sm" className="rounded-full px-5 shadow-xs">
+            <Link to="/contact">
+              Start a project
+              <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
+            </Link>
           </Button>
         </div>
 
         <button
           type="button"
           onClick={() => setMobileOpen((o) => !o)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-foreground md:hidden"
+          className="inline-flex items-center justify-center rounded-full border border-border/80 bg-card p-2 text-foreground md:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
         >
@@ -62,8 +72,8 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-border bg-background md:hidden">
-          <nav className="flex flex-col gap-1 px-4 py-3">
+        <div className="border-t border-border bg-background/95 backdrop-blur-lg md:hidden">
+          <nav aria-label="Mobile navigation" className="flex flex-col gap-1 px-4 py-4">
             {navLinks.map((link) => {
               const isActive = pathname === link.to;
               return (
@@ -72,9 +82,9 @@ export function Header() {
                   to={link.to}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "rounded-md px-3 py-3 text-sm font-medium transition-colors",
+                    "rounded-xl px-4 py-3 text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-secondary text-foreground"
+                      ? "bg-foreground text-background"
                       : "text-muted-foreground hover:bg-secondary hover:text-foreground",
                   )}
                 >
@@ -82,9 +92,10 @@ export function Header() {
                 </Link>
               );
             })}
-            <Button asChild className="mt-2 w-full">
+            <Button asChild className="mt-3 w-full rounded-full">
               <Link to="/contact" onClick={() => setMobileOpen(false)}>
                 Start a project
+                <ArrowUpRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>
           </nav>

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { DataTopographyCanvas } from "@/components/DataTopographyCanvas";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,19 +25,11 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 };
 
-const services = [
-  {
-    title: "Data Architecture",
-    subtitle: "SQL & Python pipeline engineering",
-  },
-  {
-    title: "Intelligence Design",
-    subtitle: "Power BI & advanced Excel dashboards",
-  },
-  {
-    title: "Machine Learning",
-    subtitle: "Predictive models & deployment",
-  },
+const heroDisciplines = [
+  { label: "Data Architecture", to: "/services" as const },
+  { label: "Business Intelligence", to: "/services" as const },
+  { label: "Machine Learning", to: "/services" as const },
+  { label: "Practical Training", to: "/training" as const },
 ];
 
 const metrics = [
@@ -73,166 +65,98 @@ const capabilities = [
 function HomePage() {
   return (
     <div className="bg-background">
-      {/* Hero — restructured layout, no outer card box border */}
-      <section className="relative mx-auto max-w-7xl px-4 pt-16 pb-20 sm:px-6 lg:px-8 lg:pt-24 lg:pb-28 overflow-hidden">
-        {/* Subtle radial glow background behind the floating widget */}
-        <div className="pointer-events-none absolute right-0 top-1/4 -z-10 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
-        
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
-          {/* Left column — Value Proposition */}
+      {/* Hero — open editorial layout with interactive 3D Data Topography */}
+      <section className="relative overflow-hidden border-b border-border/70">
+        {/* Interactive 3D point-cloud canvas */}
+        <div className="absolute inset-0 z-0">
+          <DataTopographyCanvas />
+          {/* Soft left-to-right readability veil so left-column typography stays crisp */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/10 sm:via-background/75 lg:w-[68%]" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 pt-16 pb-12 sm:px-6 lg:px-8 lg:pt-24 lg:pb-16">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="flex flex-col justify-center lg:col-span-7"
+            className="max-w-2xl"
           >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 self-start shadow-sm">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-3.5 py-1.5 shadow-sm backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-widest text-foreground/75">
                 Uyo · Nigeria · Active Consulting
               </span>
             </div>
 
             <h1 className="font-mono text-4xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Advanced analytics <br className="hidden sm:inline" />
-              <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">engineered</span> for growth.
+              Turn raw data into{" "}
+              <span className="bg-gradient-to-r from-primary via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                clear decisions.
+              </span>
             </h1>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Enterprise-grade data science, machine learning consulting, and specialized training. We transform complex data architectures into strategic intelligence.
+              Datadom helps businesses clean their data, build live dashboards, and deploy machine
+              learning — and trains individuals and teams in Excel, SQL, Python, and Power BI.
             </p>
 
-            <div className="mt-8 space-y-4 border-l border-border pl-6">
-              <div className="space-y-1">
-                <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-foreground">Data Architecture</h3>
-                <p className="text-xs text-muted-foreground">Automated pipelines, SQL/Python engineering & lakehouse integration.</p>
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-foreground">Intelligence Design</h3>
-                <p className="text-xs text-muted-foreground">Power BI executive dashboards and self-serve reporting architectures.</p>
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-foreground">Machine Learning</h3>
-                <p className="text-xs text-muted-foreground">Forecasting, clustering and classification models deployed natively.</p>
-              </div>
-            </div>
-
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-wrap items-center gap-3">
               <Button asChild size="lg" className="rounded-xl px-7 shadow-sm">
                 <Link to="/contact">
                   Start consulting
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-xl px-7 bg-card">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-xl bg-card/90 px-7 backdrop-blur-sm"
+              >
                 <Link to="/training">View curriculum</Link>
               </Button>
             </div>
           </motion.div>
 
-          {/* Right column — Floating Live Data Engine Simulator Card */}
+          {/* Hero footer bar: social proof & discipline tags */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="flex flex-col justify-between rounded-3xl border border-border/80 bg-card/70 p-6 sm:p-8 shadow-lg backdrop-blur-md lg:col-span-5 hover:border-primary/20 transition-colors duration-500"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+            className="mt-16 flex flex-col gap-6 border-t border-border/70 pt-8 sm:mt-24 lg:flex-row lg:items-center lg:justify-between"
           >
-            <div className="space-y-6">
-              {/* Header of widget */}
-              <div className="flex items-center justify-between border-b border-border/80 pb-4">
-                <div className="space-y-1">
-                  <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-primary">
-                    Live Engine Simulator
-                  </p>
-                  <h3 className="font-mono text-sm font-bold text-foreground">
-                    DATADOM ENGINE v1.2
-                  </h3>
-                </div>
-                <div className="flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground shadow-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  ONLINE
-                </div>
-              </div>
-
-              {/* Step 1: Data Pipeline Flow */}
-              <div className="rounded-2xl border border-border/60 bg-background/85 p-5 shadow-sm">
-                <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground">
-                  <span>PIPELINE ORCHESTRATOR</span>
-                  <span className="text-emerald-500 font-semibold">Active</span>
-                </div>
-                {/* Visual flowchart */}
-                <div className="mt-4 grid grid-cols-3 items-center gap-2">
-                  <div className="rounded-lg border border-border bg-card p-2 text-center shadow-sm">
-                    <p className="font-mono text-[9px] text-muted-foreground">SOURCE</p>
-                    <p className="mt-1 font-mono text-[10px] font-bold text-foreground">PostgreSQL</p>
-                  </div>
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="h-0.5 w-full bg-gradient-to-r from-primary to-primary/40 relative">
-                      <div className="absolute top-1/2 left-0 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-primary animate-[ping_1.5s_infinite]" />
-                    </div>
-                    <span className="mt-1 font-mono text-[8px] text-muted-foreground">ETL (24ms)</span>
-                  </div>
-                  <div className="rounded-lg border border-border bg-card p-2 text-center shadow-sm">
-                    <p className="font-mono text-[9px] text-muted-foreground">WAREHOUSE</p>
-                    <p className="mt-1 font-mono text-[10px] font-bold text-foreground">BigQuery</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Step 2: Machine Learning Prediction Model */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-border/60 bg-background/85 p-5 shadow-sm">
-                  <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground">
-                    <span>ML PREDICTION</span>
-                    <span className="text-primary font-semibold">98.4% Acc</span>
-                  </div>
-                  <div className="mt-3 flex items-end gap-2">
-                    <div className="flex-1 space-y-1">
-                      <div className="h-1 bg-border rounded-full overflow-hidden">
-                        <div className="h-full bg-primary w-[98.4%]" />
-                      </div>
-                      <p className="font-mono text-[10px] text-muted-foreground">Loss: 0.012</p>
-                    </div>
-                    <span className="shrink-0 font-mono text-xs font-bold text-foreground">Classifier</span>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-border/60 bg-background/85 p-5 shadow-sm">
-                  <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground">
-                    <span>INTELLIGENCE</span>
-                    <span className="text-muted-foreground">Live Feed</span>
-                  </div>
-                  <div className="mt-3 flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                      <span className="font-mono text-[10px] font-medium text-foreground">BI Dashboard</span>
-                    </div>
-                    <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Partners section */}
-            <div className="mt-8 border-t border-border/70 pt-6">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Trusted by leading organizations
-              </p>
-              <div className="mt-4 flex items-center gap-6">
+            <div className="flex flex-wrap items-center gap-6">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-widest text-foreground/60">
+                Trusted by
+              </span>
+              <div className="flex items-center gap-6">
                 <img
                   src="/partners/nacos.png"
                   alt="NACOS Logo"
-                  className="h-10 w-auto object-contain max-w-[100px] filter grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                  className="h-9 w-auto max-w-[100px] object-contain opacity-75 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
                 />
                 <img
                   src="/partners/okike.png"
                   alt="Okike Logo"
-                  className="h-10 w-auto object-contain max-w-[100px] filter grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                  className="h-9 w-auto max-w-[100px] object-contain opacity-75 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
                 />
               </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {heroDisciplines.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  className="rounded-full border border-border/80 bg-card/85 px-3.5 py-1.5 font-mono text-[11px] font-medium text-foreground/80 shadow-xs backdrop-blur-sm transition-colors hover:border-primary/40 hover:text-primary"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -254,8 +178,57 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Two clear paths: Consulting vs Training */}
+      <section className="mx-auto max-w-7xl px-4 pt-20 pb-8 sm:px-6 lg:px-8">
+        <div className="grid gap-6 md:grid-cols-2">
+          <Link
+            to="/services"
+            className="group flex flex-col justify-between rounded-3xl border border-border bg-card p-8 transition-all hover:border-primary/40 hover:shadow-sm"
+          >
+            <div>
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-primary">
+                For Organizations
+              </span>
+              <h2 className="mt-3 font-mono text-2xl font-bold text-foreground">
+                Data &amp; AI Consulting
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                We organize messy spreadsheets and databases, build real-time Power BI dashboards,
+                and create predictive models tailored to your operations.
+              </p>
+            </div>
+            <div className="mt-6 inline-flex items-center font-mono text-xs font-semibold text-foreground transition-colors group-hover:text-primary">
+              Explore consulting services
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </div>
+          </Link>
+
+          <Link
+            to="/training"
+            className="group flex flex-col justify-between rounded-3xl border border-border bg-card p-8 transition-all hover:border-primary/40 hover:shadow-sm"
+          >
+            <div>
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-primary">
+                For Learners &amp; Teams
+              </span>
+              <h2 className="mt-3 font-mono text-2xl font-bold text-foreground">
+                Practical Data Training
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Hands-on, project-based courses in Microsoft Excel, SQL, Python, Power BI, and
+                Machine Learning — built for real careers and workplace teams.
+              </p>
+            </div>
+            <div className="mt-6 inline-flex items-center font-mono text-xs font-semibold text-foreground transition-colors group-hover:text-primary">
+              Browse training programs
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Capabilities */}
-      <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
           whileInView="show"
